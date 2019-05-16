@@ -9,7 +9,7 @@ import requests
 import time
 
 slave_jar = '/var/lib/jenkins/slave.jar'
-slave_name = os.environ['SLAVE_NAME'] if os.environ['SLAVE_NAME'] != '' else 'docker-slave-' + os.environ['HOSTNAME']
+slave_name = os.environ['SLAVE_NAME'] if os.environ['SLAVE_NAME'] != '' else 'dotnet-slave-' + os.environ['HOSTNAME']
 jnlp_url = os.environ['JENKINS_URL'] + '/computer/' + slave_name + '/slave-agent.jnlp'
 slave_jar_url = os.environ['JENKINS_URL'] + '/jnlpJars/slave.jar'
 print(slave_jar_url)
