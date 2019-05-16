@@ -6,14 +6,24 @@ services:
             - '8080:8080'
             - '50000:50000'
         image: jenkins-master
-    jenkins-slave:
-        container_name: jenkins-slave
+    jenkins-docker-slave:
+        container_name: jenkins-docker-slave
         restart: always
         environment:
             - 'JENKINS_URL=http://jenkins:8080'
-        image: jenkins-slave
+        image: jenkins-docker-slave
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock  # Expose the docker daemon in the container
+            - /home/jenkins:/home/jenkins # Avoid mysql volume mount issue
+        depends_on:
+            - jenkins
+    jenkins-dotnet-slave:
+        container_name: jenkins-dotnet-slave
+        restart: always
+        environment:
+            - 'JENKINS_URL=http://jenkins:8080'
+        image: jenkins-dotnet-slave
+        volumes:
             - /home/jenkins:/home/jenkins # Avoid mysql volume mount issue
         depends_on:
             - jenkins

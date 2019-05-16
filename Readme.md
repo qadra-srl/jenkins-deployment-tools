@@ -14,7 +14,7 @@ Deploying Jenkins
 
 
 - Install Git
--- yum install git
+-- sudo yum install git
 -- git clone https://edofoco@bitbucket.org/edofoco/jenkins-tools.git
 
 -- Install AWS CLI
@@ -25,15 +25,24 @@ Deploying Jenkins
 -- Edit admin and password on Dockerfile
 -- docker build -t jenkins-master .
 
-- Build slave
+- Build docker slave
 -- Edit admin and password on Dockerfile
--- docker build -t jenkins-slave .
+-- docker build -t jenkins-docker-slave .
+
+- Build dotnet slave
+-- Edit admin and password on Dockerfile
+-- docker build -t jenkins-dotnet-slave .
+
 
 - Run docker-compose.ci.yml
 -- docker-compose -f docker-compose.ci.yml up
 
 - Pushing docker
--- Install CloudBee AWS Crendentials plugin
+-- Install ThinBackup plugin
+-- Install CloudBee AWS: Steps plugin
+-- Configure AWS Credentials
+-- Setup restore pipeline using restore repo
+
 -- Install Amazon ECR plugin
 Follow this tutorial https://blog.mikesir87.io/2016/04/pushing-to-ecr-using-jenkins-pipeline-plugin/
 
