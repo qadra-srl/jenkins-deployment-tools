@@ -10,8 +10,18 @@ RUN pip install awscli --upgrade --user
 
 RUN easy_install jenkins-webapi
 
-RUN sudo apt-get install apt-transport-https -y
-RUN sudo apt-get install dotnet-sdk-2.2 -y
+RUN apt-get install -y wget
+RUN apt-get install gnupg2 -y
+RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg2 --dearmor > microsoft.asc.gpg
+RUN mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/
+RUN wget -q https://packages.microsoft.com/config/ubuntu/18.04/prod.list
+RUN mv prod.list /etc/apt/sources.list.d/microsoft-prod.list
+
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/ubuntu/16.04/prod xenial main"
+RUN apt update
+
+RUN apt-get install -y dotnet-sdk-2.2 dotnet-runtime-2.2 aspnetcore-runtime-2.2 dotnet-runtime-deps-2.2
 
 # Start-up script to attach the slave to the master
 ADD slave.py /var/lib/jenkins/slave.py
