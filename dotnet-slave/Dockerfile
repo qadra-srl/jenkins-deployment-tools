@@ -23,6 +23,8 @@ RUN apt update
 
 RUN apt-get install -y dotnet-sdk-2.2 dotnet-runtime-2.2 aspnetcore-runtime-2.2 dotnet-runtime-deps-2.2
 
+dotnet tool install -g sleet
+
 # Start-up script to attach the slave to the master
 ADD slave.py /var/lib/jenkins/slave.py
 
