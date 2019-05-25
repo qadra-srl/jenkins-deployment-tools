@@ -5,9 +5,15 @@ RUN apt-get update && apt-get install -y apt-transport-https ca-certificates
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 RUN echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" > /etc/apt/sources.list.d/docker.list
 RUN apt-get update && apt-get install -y docker-ce --allow-unauthenticated
-
+RUN apt-get install -y gettext-base
+RUN apt-get install -y jq
 RUN apt-get update && apt-get install -y openjdk-8-jre curl python python-pip git
-RUN pip install awscli --upgrade --user
+
+# Install AWS CLI
+RUN apt-get install -y unzip
+RUN curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+RUN unzip awscli-bundle.zip
+RUN ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 
 RUN easy_install jenkins-webapi
 
