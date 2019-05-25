@@ -27,3 +27,13 @@ services:
             - /home/jenkins:/home/jenkins # Avoid mysql volume mount issue
         depends_on:
             - jenkins
+    jenkins-node-slave:
+        container_name: jenkins-node-slave
+        restart: always
+        environment:
+            - 'JENKINS_URL=http://jenkins:8080'
+        image: jenkins-node-slave
+        volumes:
+            - /home/jenkins:/home/jenkins # Avoid mysql volume mount issue
+        depends_on:
+            - jenkins

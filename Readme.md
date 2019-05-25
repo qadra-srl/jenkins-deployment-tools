@@ -33,6 +33,9 @@ Deploying Jenkins
 -- Edit admin and password on Dockerfile
 -- docker build -t jenkins-dotnet-slave .
 
+- Build node slave
+-- Edit admin and password on Dockerfile
+-- docker build -t jenkins-node-slave .
 
 - Run docker-compose.ci.yml
 -- docker-compose -f docker-compose.ci.yml up
