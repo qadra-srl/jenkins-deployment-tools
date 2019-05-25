@@ -17,6 +17,7 @@ RUN easy_install jenkins-webapi
 
 # Install Node dependencies
 RUN apt-get install -y nodejs
+RUN apt-get install -y npm
 RUN npm install -g grunt-cli
 
 # Start-up script to attach the slave to the master
