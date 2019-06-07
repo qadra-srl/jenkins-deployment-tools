@@ -16,7 +16,6 @@ RUN ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 RUN easy_install jenkins-webapi
 
 # Install Node dependencies
-# Install Node dependencies
 ENV NODE_VERSION 10.15.3
 
 # ce shell with bash so we can source files

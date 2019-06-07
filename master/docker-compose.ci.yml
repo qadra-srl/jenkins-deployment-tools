@@ -6,37 +6,6 @@ services:
             - '8080:8080'
             - '50000:50000'
         image: jenkins-master
-    jenkins-docker-slave:
-        container_name: jenkins-docker-slave
-        restart: always
-        environment:
-            - 'JENKINS_URL=http://jenkins:8080'
-        image: jenkins-docker-slave
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock  # Expose the docker daemon in the container
-            - /home/jenkins:/home/jenkins # Avoid mysql volume mount issue
-        depends_on:
-            - jenkins
-    jenkins-dotnet-slave:
-        container_name: jenkins-dotnet-slave
-        restart: always
-        environment:
-            - 'JENKINS_URL=http://jenkins:8080'
-        image: jenkins-dotnet-slave
-        volumes:
-            - /home/jenkins:/home/jenkins # Avoid mysql volume mount issue
-        depends_on:
-            - jenkins
-    jenkins-node-slave:
-        container_name: jenkins-node-slave
-        restart: always
-        environment:
-            - 'JENKINS_URL=http://jenkins:8080'
-        image: jenkins-node-slave
-        volumes:
-            - /home/jenkins:/home/jenkins # Avoid mysql volume mount issue
-        depends_on:
-            - jenkins
     jenkins-generic-slave:
         container_name: jenkins-generic-slave
         restart: always
@@ -44,8 +13,18 @@ services:
             - 'JENKINS_URL=http://jenkins:8080'
         image: jenkins-generic-slave
         volumes:
+            - /var/run/docker.sock:/var/run/docker.sock  # Expose the docker daemon in the container
             - /home/jenkins:/home/jenkins # Avoid mysql volume mount issue
         depends_on:
             - jenkins
-        deploy:
-            replicas: 2
+    jenkins-generic-slave-2:
+        container_name: jenkins-generic-slave-2
+        restart: always
+        environment:
+            - 'JENKINS_URL=http://jenkins:8080'
+        image: jenkins-generic-slave
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock  # Expose the docker daemon in the container
+            - /home/jenkins:/home/jenkins # Avoid mysql volume mount issue
+        depends_on:
+            - jenkins
