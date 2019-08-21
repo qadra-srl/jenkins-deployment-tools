@@ -45,7 +45,7 @@ Deploying Jenkins
 -- Install CloudBee AWS: Steps plugin
 -- Configure AWS Credentials
 -- Setup restore pipeline using restore repo
-
+ 
 -- Install Amazon ECR plugin
 Follow this tutorial https://blog.mikesir87.io/2016/04/pushing-to-ecr-using-jenkins-pipeline-plugin/
 

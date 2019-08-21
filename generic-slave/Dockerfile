@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y docker-ce --allow-unauthenticated
 RUN apt-get update && apt-get install -y openjdk-8-jre curl python python-pip git
 RUN apt-get install -y gettext-base
 RUN apt-get install -y jq
+RUN apt-get install -y zip
 RUN easy_install jenkins-webapi
 
 # Install AWS CLI
@@ -32,7 +33,8 @@ RUN apt-get install -y software-properties-common
 RUN add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/ubuntu/16.04/prod xenial main"
 RUN apt update
 RUN apt-get install -y dotnet-sdk-2.2 dotnet-runtime-2.2 aspnetcore-runtime-2.2 dotnet-runtime-deps-2.2
-RUN  dotnet tool install -g sleet
+RUN dotnet tool install -g sleet
+ENV PATH="${PATH}:/root/.dotnet/tools"
 
 # Install Node dependencies
 ENV NODE_VERSION 10.15.3
