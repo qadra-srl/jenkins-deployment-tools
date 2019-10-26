@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y docker-ce --allow-unauthenticated
 RUN apt-get update && apt-get install -y openjdk-8-jre curl python python-pip git
 RUN apt-get install -y gettext-base
 RUN apt-get install -y jq
-RUN apt-get install -y zip
+RUN apt-get install zip
 RUN easy_install jenkins-webapi
 
 # Install AWS CLI
@@ -33,11 +33,11 @@ RUN apt-get install -y software-properties-common
 RUN add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/ubuntu/16.04/prod xenial main"
 RUN apt update
 RUN apt-get install -y dotnet-sdk-2.2 dotnet-runtime-2.2 aspnetcore-runtime-2.2 dotnet-runtime-deps-2.2
-RUN dotnet tool install -g sleet
+RUN  dotnet tool install -g sleet
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
 # Install Node dependencies
-ENV NODE_VERSION 10.15.3
+ENV NODE_VERSION 12.13.0
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get update \
     && apt-get install -y curl \
@@ -55,6 +55,18 @@ RUN node -v
 RUN npm -v
 RUN npm install -g gulp
 
+# Install Cypress dependencies (separate commands to avoid time outs)
+RUN apt-get install -y \
+    libgtk2.0-0
+RUN apt-get install -y \
+    libnotify-dev
+RUN apt-get install -y \
+    libgconf-2-4 \
+    libnss3 \
+    libxss1
+RUN apt-get install -y \
+    libasound2 \
+    xvfb
 
 # Start-up script to attach the slave to the master
 ADD slave.py /var/lib/jenkins/slave.py
@@ -63,8 +75,8 @@ WORKDIR /home/jenkins
 
 ENV JENKINS_URL "http://jenkins"
 ENV JENKINS_SLAVE_ADDRESS ""
-ENV JENKINS_USER "admin"
-ENV JENKINS_PASS "admin"
+ENV JENKINS_USER "<CHANGE THIS>"
+ENV JENKINS_PASS "<CHANGE THIS>"
 ENV SLAVE_NAME ""
 ENV SLAVE_SECRET ""
 ENV SLAVE_EXECUTORS "1"
