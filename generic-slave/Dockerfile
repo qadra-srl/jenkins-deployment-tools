@@ -9,11 +9,19 @@ RUN apt-get update
 RUN echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" > /etc/apt/sources.list.d/docker.list
 RUN apt-get update && apt-get install -y docker-ce --allow-unauthenticated
 
-# Install utils
-RUN apt-get update && apt-get install -y openjdk-8-jre curl python python-pip git
+# Install Python dependencies
+RUN apt-get install -y curl python3.7 python3.7-dev python3.7-distutils
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
+RUN update-alternatives --set python /usr/bin/python3.7
+RUN curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
+    python get-pip.py --force-reinstall && \
+    rm get-pip.py
+
+# Install Utils
+RUN apt-get update && apt-get install -y openjdk-8-jre curl git
 RUN apt-get install -y gettext-base
 RUN apt-get install -y jq
-RUN apt-get install zip
+RUN apt-get install -y zip
 RUN easy_install jenkins-webapi
 
 # Install AWS CLI
