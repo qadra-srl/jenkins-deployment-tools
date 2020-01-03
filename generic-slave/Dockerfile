@@ -10,6 +10,9 @@ RUN echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stabl
 RUN apt-get update && apt-get install -y docker-ce --allow-unauthenticated
 
 # Install Python dependencies
+RUN apt-get install software-properties-common -y
+RUN add-apt-repository "ppa:deadsnakes/ppa" -y
+RUN apt-get update
 RUN apt-get install -y curl python3.7 python3.7-dev python3.7-distutils
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
 RUN update-alternatives --set python /usr/bin/python3.7
@@ -28,7 +31,7 @@ RUN easy_install jenkins-webapi
 RUN apt-get install -y unzip
 RUN curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
 RUN unzip awscli-bundle.zip
-RUN ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+RUN python3 ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 
 # Install Dotnet dependencies
 RUN apt-get install -y wget
@@ -83,8 +86,8 @@ WORKDIR /home/jenkins
 
 ENV JENKINS_URL "http://jenkins"
 ENV JENKINS_SLAVE_ADDRESS ""
-ENV JENKINS_USER "<CHANGE THIS>"
-ENV JENKINS_PASS "<CHANGE THIS>"
+ENV JENKINS_USER "<CHANGE_THIS>"
+ENV JENKINS_PASS "<CHANGE_THIS>"
 ENV SLAVE_NAME ""
 ENV SLAVE_SECRET ""
 ENV SLAVE_EXECUTORS "1"
